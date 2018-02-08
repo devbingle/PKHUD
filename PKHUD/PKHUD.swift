@@ -112,7 +112,9 @@ open class PKHUD: NSObject {
     }
 
     open func show(onView view: UIView? = nil) {
-        let view: UIView = view ?? viewToPresentOn ?? UIApplication.shared.keyWindow!
+        guard let view: UIView = view ?? viewToPresentOn else {
+            fatalError("attempting to show a PKHUD without a presenter view")
+        }
         if  !view.subviews.contains(container) {
             view.addSubview(container)
             container.frame.origin = CGPoint.zero
